@@ -143,7 +143,8 @@ SELECT * FROM osoby WHERE imie LIKE 'J*';
 
 ### Zawieranie
 
-Można sprawdzić, czy dana wartość jest elementem jakiejś listy.
+Można sprawdzić, czy dana wartość jest elementem jakiejś listy (lub nie jest
+`NOT IN`).
 
 ```sql
 SELECT * FROM osoby WHERE wiek IN (38, 12);
