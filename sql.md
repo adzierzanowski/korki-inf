@@ -291,8 +291,7 @@ znajdą się odpowiadające wiersze.
 
 ```sql
 SELECT
-  osoby.imie,
-  osoby.nazwisko,
+  osoby.imie & ' ' & osoby.nazwisko AS wlasciciel,
   zwierzeta.imie AS imie_zwierzecia,
   zwierzeta.wiek AS wiek_zwierzecia,
   zwierzeta.gatunek
@@ -301,11 +300,12 @@ INNER JOIN zwierzeta
   ON osoby.id=zwierzeta.id_osoby;
 ```
 
-| imie                | nazwisko            | imie_zwierzecia     | wiek_zwierzecia     | gatunek             |
-|---------------------|---------------------|---------------------|---------------------|---------------------|
-| Jan                 | Kowalski            | Azor                | 4                   | pies                |
-| Jan                 | Kowalski            | Fiflak              | 3                   | kot                 |
-| Rafał               | Wiśniewski          | Fortuna             | 2                   | papuga              |
+| wlasciciel          | imie_zwierzecia     | wiek_zwierzecia     | gatunek             |
+|---------------------|---------------------|---------------------|---------------------|
+| Jan Kowalski        | Azor                | 4                   | pies                |
+| Jan Kowalski        | Fiflak              | 3                   | kot                 |
+| Rafał Wiśniewski    | Fortuna             | 2                   | papuga              |
+
 
 ### LEFT JOIN
 
