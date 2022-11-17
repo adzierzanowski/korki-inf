@@ -1,5 +1,19 @@
 # SQL
 
+- [SQL](#sql)
+  - [SELECT FROM](#select-from)
+    - [TOP](#top)
+  - [WHERE](#where)
+    - [Porównywanie napisów](#porównywanie-napisów)
+  - [ORDER BY](#order-by)
+    - [Sortowanie wg wielu kolumn](#sortowanie-wg-wielu-kolumn)
+    - [DESC, ASC](#desc-asc)
+  - [GROUP BY](#group-by)
+    - [HAVING](#having)
+  - [JOIN](#join)
+    - [INNER JOIN](#inner-join)
+    - [LEFT JOIN](#left-join)
+
 ## SELECT FROM
 
 `SELECT` wybiera kolumny z tabeli
@@ -139,6 +153,11 @@ SELECT * FROM osoby ORDER BY plec, wiek;
 | 7                   | Tadeusz             | Norek               | M                   | 38                  | Warszawa            |
 | 4                   | Rafał               | Wiśniewski          | M                   | 46                  | Opole               |
 
+### DESC, ASC
+
+Do każdej kolumny w `ORDER BY` możemy dołączyć modyfikator `DESC` lub `ASC`,
+
+`DESC` sortuje kolumny nierosnąco, `ASC` - niemalejąco.
 
 ## GROUP BY
 
@@ -205,6 +224,8 @@ SELECT * FROM zwierzeta;
 Jeżeli chcemy wyświetlić osoby i ich zwierzęta, to możemy połączyć te tabele
 wg kolumny `id_osoby`.
 
+### INNER JOIN
+
 `INNER JOIN` połączy te tabele i wyświetli wiersze tylko jeżeli w drugiej tabeli (zwierzeta)
 znajdą się odpowiadające wiersze.
 
@@ -225,6 +246,8 @@ INNER JOIN zwierzeta
 | Jan                 | Kowalski            | Azor                | 4                   | pies                |
 | Jan                 | Kowalski            | Fiflak              | 3                   | kot                 |
 | Rafał               | Wiśniewski          | Fortuna             | 2                   | papuga              |
+
+### LEFT JOIN
 
 Z kolei `LEFT JOIN` wybierze **wszystkie** wiersze z lewej tabeli (`osoby`)
 niezależnie od tego, czy w prawej tabeli (`zwierzeta`) znajdą się wiersze
