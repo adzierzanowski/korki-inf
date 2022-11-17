@@ -5,6 +5,7 @@
     - [TOP](#top)
   - [WHERE](#where)
     - [Porównywanie napisów](#porównywanie-napisów)
+    - [Zawieranie](#zawieranie)
   - [ORDER BY](#order-by)
     - [Sortowanie wg wielu kolumn](#sortowanie-wg-wielu-kolumn)
     - [DESC, ASC](#desc-asc)
@@ -13,6 +14,17 @@
   - [JOIN](#join)
     - [INNER JOIN](#inner-join)
     - [LEFT JOIN](#left-join)
+- [Funkcje](#funkcje)
+  - [Funkcje agregujące](#funkcje-agregujące)
+    - [Avg](#avg)
+    - [Count](#count)
+    - [Max](#max)
+    - [Min](#min)
+    - [Sum](#sum)
+  - [Inne funkcje](#inne-funkcje)
+    - [DateDiff](#datediff)
+    - [Year](#year)
+    - [Abs](#abs)
 
 ## SELECT FROM
 
@@ -112,6 +124,36 @@ SELECT * FROM osoby WHERE imie LIKE 'J*';
 | 1                   | Jan                 | Kowalski            | M                   | 20                  | Warszawa            |
 | 5                   | Janina              | Jankowska           | K                   | 66                  | Warszawa            |
 
+### Zawieranie
+
+Można sprawdzić, czy dana wartość jest elementem jakiejś listy.
+
+```sql
+SELECT * FROM osoby WHERE wiek IN (38, 12);
+```
+
+| id                  | imie                | nazwisko            | plec                | wiek                | miasto              |
+|---------------------|---------------------|---------------------|---------------------|---------------------|---------------------|
+| 3                   | Andrzej             | Pieczony            | M                   | 12                  | Tarnów              |
+| 6                   | Karol               | Krawczyk            | M                   | 38                  | Warszawa            |
+| 7                   | Tadeusz             | Norek               | M                   | 38                  | Warszawa            |
+| 8                   | Renata              | Wrzosek             | K                   | 38                  | Opole               |
+
+Lista może być również wynikiem jakiegoś zapytania
+
+```sql
+SELECT * FROM osoby
+WHERE miasto IN (
+  SELECT miasto FROM osoby WHERE miasto LIKE 'W*'
+);
+```
+
+| id                  | imie                | nazwisko            | plec                | wiek                | miasto              |
+|---------------------|---------------------|---------------------|---------------------|---------------------|---------------------|
+| 1                   | Jan                 | Kowalski            | M                   | 20                  | Warszawa            |
+| 5                   | Janina              | Jankowska           | K                   | 66                  | Warszawa            |
+| 6                   | Karol               | Krawczyk            | M                   | 38                  | Warszawa            |
+| 7                   | Tadeusz             | Norek               | M                   | 38                  | Warszawa            |
 
 ## ORDER BY
 
@@ -296,3 +338,118 @@ WHERE zwierzeta.imie IS NULL;
 | Karol               | Krawczyk            |
 | Tadeusz             | Norek               |
 | Renata              | Wrzosek             |
+
+# Funkcje
+
+## Funkcje agregujące
+
+### Avg
+
+Oblicza średnią.
+
+```sql
+SELECT Avg(wiek) FROM osoby;
+```
+
+| Avg(wiek)           |
+|---------------------|
+| 36.25               |
+
+### Count
+
+Liczy wiersze.
+
+```sql
+-- Liczba wszystkich wierszy w tabeli
+SELECT Count(*) FROM osoby;
+```
+
+| Count(*)            |
+|---------------------|
+| 8                   |
+
+```sql
+-- Liczba osób o danym wieku
+SELECT wiek, Count(*) AS liczba_osob FROM osoby GROUP BY wiek;
+```
+
+| wiek                | liczba_osob         |
+|---------------------|---------------------|
+| 12                  | 1                   |
+| 20                  | 1                   |
+| 32                  | 1                   |
+| 38                  | 3                   |
+| 46                  | 1                   |
+| 66                  | 1                   |
+
+```sql
+-- Liczba unikalnych miast w tabeli
+SELECT Count(DISTINCT miasto) from osoby;
+```
+
+| Count(DISTINCT miasto)|
+|-----------------------|
+| 4                     |
+
+### Max
+
+Oblicza wartość maksymalną.
+
+```sql
+SELECT Max(wiek) FROM osoby;
+```
+
+| Max(wiek)           |
+|---------------------|
+| 66                  |
+
+### Min
+
+Oblicza wartość minimalną.
+
+```sql
+SELECT Min(wiek) FROM osoby;
+```
+
+| Min(wiek)           |
+|---------------------|
+| 12                  |
+
+### Sum
+
+Oblicza sumę.
+
+```sql
+SELECT Sum(wiek) FROM osoby;
+```
+
+| Sum(wiek)           |
+|---------------------|
+| 290                 |
+
+
+## Inne funkcje
+
+### DateDiff
+
+Oblicza różnicę między dwiema datami
+
+```sql
+SELECT DateDiff('yyyy-mm-dd', data_urodzenia, data_smierci) FROM osoby;
+```
+
+### Year
+
+Wybiera sam rok z daty.
+
+```sql
+SELECT Year(data_urodzenia) FROM osoby;
+```
+
+### Abs
+
+Zwraca wartość absolutną.
+
+```sql
+SELECT Abs(temperatura) FROM pomiary;
+```
