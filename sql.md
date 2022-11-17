@@ -3,6 +3,7 @@
 - [SQL](#sql)
   - [SELECT FROM](#select-from)
     - [TOP](#top)
+    - [DISTINCT](#distinct)
   - [WHERE](#where)
     - [Porównywanie napisów](#porównywanie-napisów)
     - [Zawieranie](#zawieranie)
@@ -78,6 +79,22 @@ SELECT TOP 3 imie, nazwisko, wiek FROM osoby ORDER BY wiek DESC;
 | Janina              | Jankowska           | 66                  |
 | Rafał               | Wiśniewski          | 46                  |
 | Karol               | Krawczyk            | 38                  |
+
+
+### DISTINCT
+
+Wybieramy tylko unikalne wartości z danej kolumny.
+
+```sql
+SELECT DISTINCT miasto FROM osoby;
+```
+
+| miasto              |
+|---------------------|
+| Warszawa            |
+| Kraków              |
+| Tarnów              |
+| Opole               |
 
 ## WHERE
 
